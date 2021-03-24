@@ -1,0 +1,57 @@
+package leetcode
+
+import (
+	"reflect"
+	"testing"
+)
+
+func Test_mergeKLists(t *testing.T) {
+	type args struct {
+		lists []*ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		// TODO: Add test cases.
+		{
+			name: "empty lists",
+			args: args{lists: []*ListNode{}},
+			want: nil,
+		},
+		{
+			name: "lists with empty list",
+			args: args{lists: []*ListNode{nil, nil}},
+			want: nil,
+		},
+		{
+			name: "lists with multi list",
+			args: args{lists: []*ListNode{{
+				Val: 1,
+				Next: &ListNode{
+					Val:  2,
+					Next: nil,
+				},
+			}, {
+				Val: 1,
+				Next: &ListNode{
+					Val:  3,
+					Next: nil,
+				},
+			}, {
+				Val:  1,
+				Next: nil,
+			},
+			}},
+			want: fromArray([]int{1, 1, 1, 2, 3}),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mergeKLists(tt.args.lists); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("mergeKLists() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
